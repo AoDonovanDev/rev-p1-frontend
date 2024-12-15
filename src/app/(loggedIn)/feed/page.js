@@ -1,8 +1,8 @@
 import { getAccountInfo } from "@/lib/actions"
 import { getAllPosts } from "@/lib/actions";
-import Post from "../ui/Post";
+import Post from "../../ui/Post";
 import { v4 as uuidv4 } from 'uuid';
-import Feed from "../ui/Feed";
+import Feed from "../../ui/Feed";
 
 export default async function Page(){
 

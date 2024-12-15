@@ -4,10 +4,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-export async function signup(){
-
-}
-
 export async function login(formData){
     const username = formData.get("username");
     const password = formData.get("password");
@@ -31,6 +27,37 @@ export async function login(formData){
         redirect("/");
     }
 }
+
+export async function logout(){
+    const cookieStore = await cookies();
+    cookieStore.delete("smt");
+    redirect("/");
+}
+
+export async function signup(formData){
+    const username = formData.get("username");
+    const password = formData.get("password");
+    const result = await fetch(`${process.env.BACKEND_API_URL}/register`, {
+        cache: "no-cache",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username,
+            password
+        })
+    })
+    const { authenticated, token } = await result.json();
+    if(authenticated){
+        const cookieStore = await cookies();
+        cookieStore.set("smt", token, {maxAge: 3600});
+        redirect("/feed")
+    } else {
+        redirect("/");
+    }
+}
+
 
 export async function getAccountInfo(){
     const cookieStore = await cookies();

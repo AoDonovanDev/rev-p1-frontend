@@ -22,7 +22,7 @@ export async function middleware(req) {
     if(!authDto.authenticated){
       return NextResponse.redirect(`${process.env.BASE_URL}/`);
     } else {
-      cookieStore.set("smt", token.value);
+      cookieStore.set("smt", token.value, {maxAge: 3600});
       return NextResponse.next();
     }
   } catch(e){
