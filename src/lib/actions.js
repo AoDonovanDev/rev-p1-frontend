@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function signup(){
 
@@ -56,4 +57,19 @@ export async function getPostById(postId){
     const response = await fetch(`${process.env.BACKEND_API_URL}/posts/${postId}`);
     const post = await response.json();
     return post;
+}
+
+export async function addOrRemoveLike(accountId, postId, addRemove){
+    await fetch(`${process.env.BACKEND_API_URL}/posts/${addRemove}Like`, {
+        cache: "no-cache",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            accountId,
+            postId
+        })
+    })
+    revalidatePath("/feed");
 }

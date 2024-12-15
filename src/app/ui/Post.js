@@ -2,14 +2,17 @@
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { useState } from "react";
+import { addOrRemoveLike} from "@/lib/actions";
 
-export default function Post( { post, isLiked } ){
+export default function Post( { post, isLiked, accountInfo } ){
+
+    const [heartFlag, setHeartFlag] = useState(isLiked);
 
     const router = useRouter();
-
+    
     function postClick(e, postId){
         if(e.target instanceof HTMLDivElement || e.target instanceof HTMLParagraphElement){
-            console.log("its the goddamn post")
             router.push(`/post/${postId}`)
         } else {
             console.log("something else")
@@ -17,6 +20,13 @@ export default function Post( { post, isLiked } ){
     }
 
     async function toggleLike(){
+        const flag = heartFlag == true ? false : true;
+        if(flag){
+            addOrRemoveLike(accountInfo.accountId, post.postId, "add");
+        } else {
+            addOrRemoveLike(accountInfo.accountId, post.postId, "remove");
+        }
+        setHeartFlag(flag);
         
     }
 
@@ -29,10 +39,9 @@ export default function Post( { post, isLiked } ){
                 </div>
                 <p>{post.postText}</p>
                 <div className="card-actions justify-end">
-                    <a className="btn btn-ghost"><Image src={"/comment1.svg"} height={20} width={20} alt="comment button"/></a>
-                    {isLiked ? <a className="btn btn-ghost"><Image src={"/heartRed1.svg"} height={20} width={20} alt="like button"/></a> :
-                    <a className="btn btn-ghost"><Image src={"/heart1.svg"} height={20} width={20} alt="like button"/></a>
-                    }   
+                    <button className="btn btn-ghost"><Image src={"/comment1.svg"} height={20} width={20} alt="comment button"/></button>
+                    {heartFlag ? <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heartRed1.svg"} height={20} width={20} alt="like button"/></button> :
+                    <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heart1.svg"} height={20} width={20} alt="like button"/></button>}   
                 </div>
             </div>
         </div>
