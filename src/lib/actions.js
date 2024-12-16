@@ -116,6 +116,9 @@ export async function getAccountByAccountId(accountId){
         return account;
     } else {
         redirect("/");
-    }
+    }   
+}
+
+export async function addComment(commentedBy, cmPostId){
     
 }

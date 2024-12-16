@@ -4,11 +4,15 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react";
 import { addOrRemoveLike} from "@/lib/actions";
+import AddCommentModal from "./AddCommentModal";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Post( { post, isLiked, accountInfo } ){
     console.log(post)
     const [heartFlag, setHeartFlag] = useState(isLiked);
     const [likesCount, setLikesCount] = useState(post.postLikes.length);
+
+    const uid = uuidv4();
 
     const router = useRouter();
     
@@ -42,7 +46,7 @@ export default function Post( { post, isLiked, accountInfo } ){
                 </div>
                 <p>{post.postText}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-ghost"><Image src={"/comment1.svg"} height={20} width={20} alt="comment button"/></button>
+                    <AddCommentModal post={post} accountInfo={accountInfo} uid={uid}/>
                     {heartFlag ? <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heartRed1.svg"} height={20} width={20} alt="like button"/>{likesCount}</button> :
                     <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heart1.svg"} height={20} width={20} alt="like button"/>{likesCount}</button>}   
                 </div>
