@@ -71,7 +71,12 @@ export async function getAccountInfo(){
         body: token.value
     })
     const accInfoDto = await response.json();
-    return accInfoDto;
+    const { success, account } = accInfoDto;
+    if(success){
+        return account;
+    } else {
+        redirect("/");
+    }
 }
 
 export async function getAllPosts(){
@@ -86,7 +91,7 @@ export async function getPostById(postId){
     return post;
 }
 
-export async function addOrRemoveLike(accountId, postId, addRemove){
+export async function addOrRemoveLike(plAccountId, plPostId, addRemove){
     await fetch(`${process.env.BACKEND_API_URL}/posts/${addRemove}Like`, {
         cache: "no-cache",
         method: "POST",
@@ -94,9 +99,23 @@ export async function addOrRemoveLike(accountId, postId, addRemove){
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            accountId,
-            postId
+            plAccountId,
+            plPostId
         })
     })
-    revalidatePath("/feed");
+}
+
+export async function getAccountByAccountId(accountId){
+    const response = await fetch(`${process.env.BACKEND_API_URL}/accounts/${accountId}`, {
+        cache: "no-cache"
+    });
+    const accInfoDto = await response.json();
+    console.log(accountId, accInfoDto)
+    const { success, account } = accInfoDto;
+    if(success){
+        return account;
+    } else {
+        redirect("/");
+    }
+    
 }

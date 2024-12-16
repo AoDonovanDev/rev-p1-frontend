@@ -1,4 +1,5 @@
 import { logout } from "@/lib/actions"
+import Image from "next/image"
 
 export default function LoggedInLayout( { children } ){
     return (
@@ -6,6 +7,7 @@ export default function LoggedInLayout( { children } ){
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                 <a className="btn btn-ghost text-xl">BoopSky</a>
+                <button className="btn btn-ghost p-0"><Image src={"/newPost1.svg"} height={60} width={60} alt="new post button" className="p-0"/></button>
                 </div>
                 <div className="navbar-center flex justify-between w-1/4 cursor-pointer border-b-[2px] px-[8px]">
                     <p className="font-semibold">Following</p>
@@ -14,13 +16,13 @@ export default function LoggedInLayout( { children } ){
                 <div className="navbar-end">
                 <div className="form-control">
                     <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-                    </div>
+                </div>
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
                         <img
-                            alt="Tailwind CSS Navbar component"
-                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                            alt="avatar click here for profile access and logout"
+                            src="/pfp1.svg" />
                         </div>
                     </div>
                     <ul

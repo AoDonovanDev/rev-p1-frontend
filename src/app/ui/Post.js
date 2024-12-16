@@ -6,8 +6,9 @@ import { useState } from "react";
 import { addOrRemoveLike} from "@/lib/actions";
 
 export default function Post( { post, isLiked, accountInfo } ){
-
+    console.log(post)
     const [heartFlag, setHeartFlag] = useState(isLiked);
+    const [likesCount, setLikesCount] = useState(post.postLikes.length);
 
     const router = useRouter();
     
@@ -23,8 +24,10 @@ export default function Post( { post, isLiked, accountInfo } ){
         const flag = heartFlag == true ? false : true;
         if(flag){
             addOrRemoveLike(accountInfo.accountId, post.postId, "add");
+            setLikesCount(likesCount+1)
         } else {
             addOrRemoveLike(accountInfo.accountId, post.postId, "remove");
+            setLikesCount(likesCount-1)
         }
         setHeartFlag(flag);
         
@@ -35,13 +38,13 @@ export default function Post( { post, isLiked, accountInfo } ){
             <div className="card-body">
                 <div className="flex">
                     <Image src={"/pfp1.svg"} height={20} width={20} alt="profile avatar"/>
-                    <a className="card-title ml-[8px]">{post.account}</a>
+                    <a className="card-title ml-[8px] hover:bg-base-300" href={`/account/${post.postedBy}`}>{post.account}</a>
                 </div>
                 <p>{post.postText}</p>
                 <div className="card-actions justify-end">
                     <button className="btn btn-ghost"><Image src={"/comment1.svg"} height={20} width={20} alt="comment button"/></button>
-                    {heartFlag ? <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heartRed1.svg"} height={20} width={20} alt="like button"/></button> :
-                    <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heart1.svg"} height={20} width={20} alt="like button"/></button>}   
+                    {heartFlag ? <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heartRed1.svg"} height={20} width={20} alt="like button"/>{likesCount}</button> :
+                    <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heart1.svg"} height={20} width={20} alt="like button"/>{likesCount}</button>}   
                 </div>
             </div>
         </div>

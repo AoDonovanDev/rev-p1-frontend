@@ -4,7 +4,6 @@ import { cookies } from 'next/headers';
 export async function middleware(req) {
   const cookieStore = await cookies();
   const token = cookieStore.get("smt");
-  console.log(token)
   if(!token){
     return NextResponse.redirect(`${process.env.BASE_URL}/`);
   }
