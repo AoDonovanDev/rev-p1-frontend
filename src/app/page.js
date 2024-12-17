@@ -1,4 +1,9 @@
-export default function Home() {
+import { checkForToken } from "@/lib/actions";
+
+export default async function Page() {
+
+  await checkForToken();
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content text-center">

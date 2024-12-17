@@ -19,6 +19,7 @@ export async function middleware(req) {
         })
     const authDto = await response.json();
     if(!authDto.authenticated){
+      cookieStore.delete("smt");
       return NextResponse.redirect(`${process.env.BASE_URL}/`);
     } else {
       cookieStore.set("smt", token.value, {maxAge: 3600});

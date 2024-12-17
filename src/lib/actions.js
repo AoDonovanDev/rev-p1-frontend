@@ -122,3 +122,10 @@ export async function getAccountByAccountId(accountId){
 export async function addComment(commentedBy, cmPostId){
     
 }
+
+export async function checkForToken(){
+    const cookieStore = await cookies();
+    if(cookieStore.get("smt")){
+        redirect("/feed");
+    }
+}
