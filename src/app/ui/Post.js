@@ -2,7 +2,8 @@
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AccountContext } from "../AccountContext";
 import { addOrRemoveLike} from "@/lib/actions";
 import { usePathname } from "next/navigation";
 import AddCommentModal from "./AddCommentModal";
