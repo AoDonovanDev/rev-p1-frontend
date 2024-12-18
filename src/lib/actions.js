@@ -119,8 +119,22 @@ export async function getAccountByAccountId(accountId){
     }   
 }
 
-export async function addComment(commentedBy, cmPostId){
-    
+export async function addComment(formData){
+    const response = await fetch(`${process.env.BACKEND_API_URL}/comments`, {
+        cache: "no-cache",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            cmPostId: formData.get("cmPostId"),
+            commentedBy: formData.get("commentedBy"),
+            commentText: formData.get("commentText")
+        })
+    })
+    const newComment = await response.json();
+    console.log(newComment);
+    revalidatePath(formData.get("path"));
 }
 
 export async function addPost(formData){

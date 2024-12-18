@@ -15,7 +15,7 @@ export default function LoggedInLayout( { children } ){
             setAccount(account);
         })()
     }, [])
-
+    console.log(account)
     return (
         <AccountContext.Provider value={account}>
             <div className="lg:mx-[200px]">
