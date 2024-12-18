@@ -13,7 +13,6 @@ export default function Feed( { posts } ){
     return (
         <div className="flex flex-col items-center">
             {posts.map(p => {
-                console.log(p.postId)
                 const isLiked = likedPosts?.filter(lp => lp.postId == p.postId).length > 0;
                 return <Post post={p} key={uuidv4()} isLiked={isLiked} accountInfo={accountInfo}/>
                 }

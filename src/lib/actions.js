@@ -123,6 +123,25 @@ export async function addComment(commentedBy, cmPostId){
     
 }
 
+export async function addPost(formData){
+    const timePostedEpoch = Date.now();
+    const response = await fetch(`${process.env.BACKEND_API_URL}/posts`, {
+        cache: "no-cache",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            postedBy: formData.get("accountId"),
+            postText: formData.get("postText"),
+            timePostedEpoch
+        })
+    })
+    const newPostDto = await response.json();
+    console.log("server action add post: ", formData, newPostDto);
+    revalidatePath("/feed");
+}
+
 export async function checkForToken(){
     const cookieStore = await cookies();
     if(cookieStore.get("smt")){

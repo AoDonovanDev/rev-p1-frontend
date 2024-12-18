@@ -15,8 +15,6 @@ export default function LoggedInLayout( { children } ){
             setAccount(account);
         })()
     }, [])
-    
-    console.log("huh: ", account)
 
     return (
         <AccountContext.Provider value={account}>

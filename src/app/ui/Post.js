@@ -23,7 +23,6 @@ export default function Post( { post, isLiked, accountInfo } ){
             console.log("something else")
         }
     }
-
     async function toggleLike(){
         const flag = heartFlag == true ? false : true;
         if(flag){
