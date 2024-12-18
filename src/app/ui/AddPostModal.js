@@ -17,6 +17,7 @@ export default function AddPostModal(){
     function close(){
         document.getElementById("add_post_modal").close();
     }
+
     return(
         <>
             <button className="btn btn-primary" onClick={()=>document.getElementById('add_post_modal').showModal()}>NEW POST<Image src={"/newPost2.svg"} height={40} width={40} alt="new post button" className="p-0" /></button>
@@ -27,8 +28,8 @@ export default function AddPostModal(){
                     <form className="flex flex-col justify-around w-full" action={(formData)=>submit(formData)}>
                         <textarea className="textarea textarea-bordered self-start w-full" placeholder="What's up?" name="postText"></textarea>
                         <input type="text" hidden defaultValue={accountInfo.accountId} name="accountId" />
-                        <button style={{position: "relative", top: "25px"}} onClick={close}><Image src={"/cancel2.svg"} height={40} width={40} alt="cancel button"/></button>
-                        <button className="btn btn-primary self-end" style={{position: "relative", bottom: "175px"}}>POST</button>
+                        <button type="button" style={{position: "relative", top: "25px"}} onClick={close}><Image src={"/cancel2.svg"} height={40} width={40} alt="cancel button"/></button>
+                        <button type="button" className="btn btn-primary self-end" style={{position: "relative", bottom: "175px"}}>POST</button>
                     </form>
                 </div>
             </div>
