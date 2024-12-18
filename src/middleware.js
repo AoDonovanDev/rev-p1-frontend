@@ -31,5 +31,5 @@ export async function middleware(req) {
 }
  
 export const config = {
-  matcher: ['/feed']
+  matcher: ['/feed/:path*']
 }

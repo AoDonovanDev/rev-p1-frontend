@@ -22,7 +22,7 @@ export async function login(formData){
     if(authenticated){
         const cookieStore = await cookies();
         cookieStore.set("smt", token, {maxAge: 3600});
-        redirect("/feed");
+        redirect("/feed/all");
     } else {
         redirect("/");
     }
@@ -107,7 +107,6 @@ export async function addOrRemoveLike(plAccountId, plPostId, addRemove){
 
 export async function getAccountByAccountId(accountId){
     const response = await fetch(`${process.env.BACKEND_API_URL}/accounts/${accountId}`, {
-        cache: "no-cache"
     });
     const accInfoDto = await response.json();
     console.log(accountId, accInfoDto)
@@ -117,6 +116,22 @@ export async function getAccountByAccountId(accountId){
     } else {
         redirect("/");
     }   
+}
+
+export async function getPostsByFollowing(){
+    const cookieStore = await cookies();
+    const token = cookieStore.get("smt");
+    const response = await fetch(`${process.env.BACKEND_API_URL}/following/posts`, {
+        cache: "no-cache",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: token.value
+    });
+    const postsByFollowing = await response.json();
+    console.log("posts by following server action: ", postsByFollowing, token)
+    return postsByFollowing;
 }
 
 export async function addComment(formData){
@@ -159,6 +174,6 @@ export async function addPost(formData){
 export async function checkForToken(){
     const cookieStore = await cookies();
     if(cookieStore.get("smt")){
-        redirect("/feed");
+        redirect("/feed/all");
     }
 }

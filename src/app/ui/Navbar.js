@@ -2,24 +2,31 @@
 
 import Link from "next/link"
 import { logout } from "@/lib/actions"
-import Image from "next/image"
 import AddPostModal from "./AddPostModal"
 import { AccountContext } from "../AccountContext"
-import { useContext } from "react"
+import { useContext, useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Navbar(){
 
     const account = useContext(AccountContext);
+    const router = useRouter();
+    const [view, setView] = useState("all");
+
+    function toggleView(str){
+        setView(str);
+        router.push(`/feed/${str}`);
+    }
 
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
-                <Link className="btn btn-ghost text-xl" href="/feed">BoopSky</Link>
+                <Link className="btn btn-ghost text-xl" href="/feed/all">BoopSky</Link>
             </div>
             <div className="navbar-center flex flex-col flex mt-[64px]">
-                <div className="cursor-pointer border-b-[2px] px-[8px] py-[8px] mb-[16px] flex w-full justify-between">
-                    <p className="font-semibold">Following</p>
-                    <p className="ml-[8px] font-semibold">All</p>
+                <div className="cursor-pointer border-b-[2px] pt-[8px] mb-[16px] flex w-full">
+                    <p className={`font-semibold w-1/2 indent-3 ${view == "all" ? "border-b-[4px]" : ""}`} onClick={()=>toggleView("all")}>All</p>
+                    <p className={`font-semibold ml-[8px] w-1/2 text-right indent-8 ${view == "following" ? "border-b-[4px]" : ""}`} onClick={()=>toggleView("following")}>Following &nbsp; &nbsp;</p>
                 </div>
                 <div className="flex">
                     <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto mr-[16px]" />

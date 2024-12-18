@@ -4,6 +4,7 @@ import Navbar from "../ui/Navbar"
 import { useState, useEffect } from "react"
 import { getAccountInfo } from "@/lib/actions"
 import { AccountContext } from "../AccountContext"
+import { getAllPosts } from "@/lib/actions"
 
 export default function LoggedInLayout( { children } ){
 
@@ -12,6 +13,8 @@ export default function LoggedInLayout( { children } ){
     useEffect( () => {
         (async()=>{
             const account = await getAccountInfo();
+            const allPosts = await getAllPosts();
+            account.allPosts = allPosts;
             setAccount(account);
         })()
     }, [])
