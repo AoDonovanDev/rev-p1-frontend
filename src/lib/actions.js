@@ -174,6 +174,6 @@ export async function addPost(formData){
 export async function checkForToken(){
     const cookieStore = await cookies();
     if(cookieStore.get("smt")){
-        redirect("/feed/all");
+        redirect("/feed");
     }
 }

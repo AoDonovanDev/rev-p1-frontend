@@ -7,21 +7,19 @@ import { AccountContext } from "../AccountContext"
 import { useContext, useState } from "react"
 import { useRouter } from "next/navigation"
 
-export default function Navbar(){
+export default function Navbar({view, setView}){
 
     const account = useContext(AccountContext);
-    const router = useRouter();
-    const [view, setView] = useState("all");
+    const { replace } = useRouter();
 
     function toggleView(str){
         setView(str);
-        router.push(`/feed/${str}`);
     }
 
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
-                <Link className="btn btn-ghost text-xl" href="/feed/all">BoopSky</Link>
+                <Link className="btn btn-ghost text-xl" href="/feed">BoopSky</Link>
             </div>
             <div className="navbar-center flex flex-col flex mt-[64px]">
                 <div className="cursor-pointer border-b-[2px] pt-[8px] mb-[16px] flex w-full">

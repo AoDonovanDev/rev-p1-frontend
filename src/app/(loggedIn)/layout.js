@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { getAccountInfo } from "@/lib/actions"
 import { AccountContext } from "../AccountContext"
 import { getAllPosts } from "@/lib/actions"
+import LoggedInContainer from "../ui/LoggedInContainer"
 
 export default function LoggedInLayout( { children } ){
 
@@ -15,16 +16,15 @@ export default function LoggedInLayout( { children } ){
             const account = await getAccountInfo();
             const allPosts = await getAllPosts();
             account.allPosts = allPosts;
+            console.log("loagin me data")
             setAccount(account);
         })()
     }, [])
     console.log(account)
     return (
         <AccountContext.Provider value={account}>
-            <div className="lg:mx-[200px]">
-                <Navbar />
-                {children}
-            </div>
+            <LoggedInContainer />
+            {children}
         </AccountContext.Provider>
     )
 }

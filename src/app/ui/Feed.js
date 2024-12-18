@@ -1,17 +1,21 @@
 'use client'
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AccountContext } from "../AccountContext";
 import Post from "./Post"
 import { v4 as uuidv4 } from 'uuid';
-import { useParams } from "next/navigation";
 
-export default function Feed(){
+export default function Feed({view}){
 
     const accountInfo = useContext(AccountContext);
     const { likedPosts, postsByFollowing, allPosts } = accountInfo;
-    const { view } = useParams();
+    const [shownPosts, setShownPosts] = useState([])
     
-    const shownPosts = view == "all" ? allPosts : postsByFollowing;
+
+    useEffect(()=> {
+        console.log("here is the view: ", view)
+        const shownPosts = view == "all" ? allPosts : postsByFollowing;
+        setShownPosts(shownPosts);
+    },[view])
 
     return (
         <div className="flex flex-col items-center">
