@@ -19,10 +19,11 @@ export async function login(formData){
         })
     })
     const { authenticated, token } = await result.json();
+    console.log("login server action: ", authenticated, token)
     if(authenticated){
         const cookieStore = await cookies();
         cookieStore.set("smt", token, {maxAge: 3600});
-        redirect("/feed/all");
+        redirect("/feed");
     } else {
         redirect("/");
     }
@@ -135,22 +136,26 @@ export async function getPostsByFollowing(){
 }
 
 export async function addComment(formData){
+    const path = formData.get("path");
+
+    const commentData = {
+        cmPostId: formData.get("cmPostId"),
+        commentedBy: formData.get("commentedBy"),
+        commentText: formData.get("commentText")
+    }
+
     const response = await fetch(`${process.env.BACKEND_API_URL}/comments`, {
         cache: "no-cache",
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-            cmPostId: formData.get("cmPostId"),
-            commentedBy: formData.get("commentedBy"),
-            commentText: formData.get("commentText")
-        })
+        body: JSON.stringify(commentData)
     })
-    const newComment = await response.json();
-    console.log(newComment);
-    revalidatePath(formData.get("path"));
+    await response.json();
+    redirect(`/post/${formData.get("cmPostId")}`);
 }
+    
 
 export async function addPost(formData){
     const timePostedEpoch = Date.now();
@@ -167,8 +172,7 @@ export async function addPost(formData){
         })
     })
     const newPostDto = await response.json();
-    console.log("server action add post: ", formData, newPostDto);
-    revalidatePath("/feed");
+    revalidatePath("/feed", "layout");
 }
 
 export async function checkForToken(){

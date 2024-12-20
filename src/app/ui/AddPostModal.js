@@ -29,7 +29,7 @@ export default function AddPostModal(){
                         <textarea className="textarea textarea-bordered self-start w-full" placeholder="What's up?" name="postText"></textarea>
                         <input type="text" hidden defaultValue={accountInfo.accountId} name="accountId" />
                         <button type="button" style={{position: "relative", top: "25px"}} onClick={close}><Image src={"/cancel2.svg"} height={40} width={40} alt="cancel button"/></button>
-                        <button type="button" className="btn btn-primary self-end" style={{position: "relative", bottom: "175px"}}>POST</button>
+                        <button className="btn btn-primary self-end" style={{position: "relative", bottom: "175px"}}>POST</button>
                     </form>
                 </div>
             </div>

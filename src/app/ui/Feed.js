@@ -4,24 +4,24 @@ import { AccountContext } from "../AccountContext";
 import Post from "./Post"
 import { v4 as uuidv4 } from 'uuid';
 
-export default function Feed({view}){
+export default function Feed({view, allPosts}){
 
     const accountInfo = useContext(AccountContext);
-    const { likedPosts, postsByFollowing, allPosts } = accountInfo;
-    const [shownPosts, setShownPosts] = useState([])
-    
+    const { likedPosts, postsByFollowing } = accountInfo;
+    const [shownPosts, setShownPosts] = useState([]);
+    const [newLikedPosts, setNewLikedPosts] = useState(likedPosts)
 
     useEffect(()=> {
-        console.log("here is the view: ", view)
         const shownPosts = view == "all" ? allPosts : postsByFollowing;
         setShownPosts(shownPosts);
-    },[view])
+    },[view, allPosts])
 
+
+    
     return (
         <div className="flex flex-col items-center">
             {shownPosts?.map(p => {
-                const isLiked = likedPosts?.filter(lp => lp.postId == p.postId).length > 0;
-                return <Post post={p} key={uuidv4()} isLiked={isLiked} accountInfo={accountInfo}/>
+                return <Post key={uuidv4()} post={p} likedPosts={newLikedPosts} setNewLikedPosts={setNewLikedPosts}/>
                 }
             )}
         </div>
