@@ -134,7 +134,6 @@ export async function getPostsByFollowing(){
         body: token.value
     });
     const postsByFollowing = await response.json();
-    console.log("posts by following server action: ", postsByFollowing, token)
     return postsByFollowing;
 }
 
@@ -176,6 +175,18 @@ export async function addPost(formData){
     })
     const newPostDto = await response.json();
     revalidatePath("/feed", "layout");
+}
+
+export async function deletePost(postId){
+    await fetch(`${process.env.BACKEND_API_URL}/posts/${postId}`, {
+        cache: "no-cache",
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: postId
+    })
+    revalidatePath("/feed", "layout")
 }
 
 export async function checkForToken(){

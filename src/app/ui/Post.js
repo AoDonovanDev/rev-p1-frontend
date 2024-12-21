@@ -7,12 +7,14 @@ import { usePathname } from "next/navigation";
 import AddCommentModal from "./AddCommentModal";
 import LikeButton from "./LikeButton";
 import Link from "next/link";
-import { PostContext } from "../PostContext";
+import { AccountContext } from "../AccountContext";
+import DeleteButton from "./DeleteButton";
 
 export default function Post({ post }){
 
     const [commentsCount, setCommentsCount] = useState(post?.comments.length);
 
+    const accountInfo = useContext(AccountContext);
     const router = useRouter();
     const path = usePathname();
     const isAccountPage = path.includes("account");
@@ -41,6 +43,7 @@ export default function Post({ post }){
                     <AddCommentModal post={post} setCommentsCount={setCommentsCount} commentsCount={commentsCount}/>
                     </div>
                     <LikeButton post={post} />
+                    {accountInfo.accountId == post.postedBy ? <DeleteButton postId={post.postId}/> : <></>}
                 </div>
             </div>
         </div>
