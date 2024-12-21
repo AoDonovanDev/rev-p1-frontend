@@ -21,11 +21,16 @@ export default function Feed({allPosts}){
                     name: "all",
                     posts: allPosts
                 });
-                break
+                break;
             case "following":
                 setView({
                     name: "following",
                     posts: postsByFollowing
+                })
+                break;
+            default:
+                setView(view => {
+                    return {...view}
                 })
         }
         await revalidateFeed();
