@@ -2,44 +2,35 @@
 
 import Image from "next/image"
 import { addOrRemoveLike } from "@/lib/actions";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AccountContext } from "../AccountContext";
 
-export default function LikeButton({heartFlag, likesCount, setHeartFlag, setPostState, postState, setNewLikedPosts}){
+export default function LikeButton({post}){
     
     const accountInfo = useContext(AccountContext);
+    const [likeState, setLikeState] = useState({
+        isLiked: post.postLikes.includes(accountInfo.accountId),
+        likesCount: post.postLikes.length
+    })
+    
 
-    async function toggleLike(){
-        const flag = heartFlag == true ? false : true;
-        if(flag){
-            addOrRemoveLike(accountInfo.accountId, postState.postId, "add");
-            setNewLikedPosts(lp => {
-                const copy = [...lp];
-                copy.push(postState);
-                return copy
-            });
-            setPostState(ps => {
-                const copy = {...ps};
-                copy.postLikes.push(accountInfo.accountId);
-                return copy
-            })
+    function toggleLike(){
+        const newLikeState = {...likeState}
+        if(!newLikeState.isLiked){
+            addOrRemoveLike(accountInfo.accountId, post.postId, "add");
+            newLikeState.likesCount += 1;
         } else {
-            addOrRemoveLike(accountInfo.accountId, postState.postId, "remove");
-            setNewLikedPosts(lp => {
-                const copy = lp;
-                return copy.filter(lp => lp.postId != postState.postId)
-            });
-            setPostState(ps => {
-                const copy = {...ps};
-                copy.postLikes = copy.postLikes.pop()
-                return copy;
-            })
+            addOrRemoveLike(accountInfo.accountId, post.postId, "remove");
+            newLikeState.likesCount -= 1;
         }
-        setHeartFlag(flag);
+        setLikeState({
+            ...newLikeState,
+            isLiked: newLikeState.isLiked ? false: true
+        })
     }
     
     return(
-         heartFlag ? <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heartRed1.svg"} height={20} width={20} alt="like button"/>{likesCount}</button> :
-                    <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heart1.svg"} height={20} width={20} alt="like button"/>{likesCount}</button>  
+        likeState.isLiked ? <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heartRed1.svg"} height={20} width={20} alt="like button"/>{likeState.likesCount}</button> :
+                    <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heart1.svg"} height={20} width={20} alt="like button"/>{likeState.likesCount}</button>  
     )
 }

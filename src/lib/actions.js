@@ -19,7 +19,6 @@ export async function login(formData){
         })
     })
     const { authenticated, token } = await result.json();
-    console.log("login server action: ", authenticated, token)
     if(authenticated){
         const cookieStore = await cookies();
         cookieStore.set("smt", token, {maxAge: 3600});
@@ -81,7 +80,9 @@ export async function getAccountInfo(){
 }
 
 export async function getAllPosts(){
-    const response = await fetch(`${process.env.BACKEND_API_URL}/posts`);
+    const response = await fetch(`${process.env.BACKEND_API_URL}/posts`, {
+        cache: "no-cache"
+    });
     const posts = await response.json();
     return posts;
 }
@@ -93,6 +94,7 @@ export async function getPostById(postId){
 }
 
 export async function addOrRemoveLike(plAccountId, plPostId, addRemove){
+    console.log("add remove action: ",plAccountId, plPostId)
     await fetch(`${process.env.BACKEND_API_URL}/posts/${addRemove}Like`, {
         cache: "no-cache",
         method: "POST",
@@ -108,6 +110,7 @@ export async function addOrRemoveLike(plAccountId, plPostId, addRemove){
 
 export async function getAccountByAccountId(accountId){
     const response = await fetch(`${process.env.BACKEND_API_URL}/accounts/${accountId}`, {
+        cache: "no-cache"
     });
     const accInfoDto = await response.json();
     console.log(accountId, accInfoDto)
@@ -180,4 +183,8 @@ export async function checkForToken(){
     if(cookieStore.get("smt")){
         redirect("/feed");
     }
+}
+
+export async function revalidateFeed(){
+    revalidatePath("/feed", "layout");
 }

@@ -2,18 +2,16 @@
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useState, useContext, useEffect } from "react";
-import { AccountContext } from "../AccountContext";
-import { addOrRemoveLike} from "@/lib/actions";
+import { useState, useContext } from "react";
 import { usePathname } from "next/navigation";
 import AddCommentModal from "./AddCommentModal";
 import LikeButton from "./LikeButton";
 import Link from "next/link";
+import { PostContext } from "../PostContext";
 
-export default function Post( { post, likedPosts, setNewLikedPosts } ){
-    const [heartFlag, setHeartFlag] = useState(likedPosts.filter(p => p.postId == post.postId).length > 0);
-    const [postState, setPostState] = useState(post);
-    const [commentsCount, setCommentsCount] = useState(post.comments.length);
+export default function Post({ post }){
+
+    const [commentsCount, setCommentsCount] = useState(post?.comments.length);
 
     const router = useRouter();
     const path = usePathname();
@@ -29,7 +27,6 @@ export default function Post( { post, likedPosts, setNewLikedPosts } ){
     }
     
 
-
     return(
         <div className="card bg-base-100 w-96 shadow-xl mt-[12px] cursor-pointer" onClick={(e)=>postClick(e, post.postId)}>
             <div className="card-body">
@@ -41,9 +38,9 @@ export default function Post( { post, likedPosts, setNewLikedPosts } ){
                 <div className="card-actions justify-end">
                 <p className="text-xs self-center">{timePosted.toString().slice(0,21)}</p>
                     <div className="flex items-center">
-                        <AddCommentModal post={post} setCommentsCount={setCommentsCount} commentsCount={commentsCount}/>
+                    <AddCommentModal post={post} setCommentsCount={setCommentsCount} commentsCount={commentsCount}/>
                     </div>
-                    <LikeButton heartFlag={heartFlag} likesCount={postState.postLikes.length} setHeartFlag={setHeartFlag} setPostState={setPostState} postState={postState} setNewLikedPosts={setNewLikedPosts}/>
+                    <LikeButton post={post} />
                 </div>
             </div>
         </div>
