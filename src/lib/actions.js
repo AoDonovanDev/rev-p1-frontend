@@ -176,6 +176,7 @@ export async function addPost(formData){
     const newPostDto = await response.json();
     newPostDto.comments = [];
     newPostDto.postLikes = [];
+    console.log(newPostDto)
     revalidatePath("/feed", "layout");
     return newPostDto;
 }

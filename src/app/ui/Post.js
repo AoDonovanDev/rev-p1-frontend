@@ -10,7 +10,7 @@ import Link from "next/link";
 import { AccountContext } from "../AccountContext";
 import DeleteButton from "./DeleteButton";
 
-export default function Post({ post }){
+export default function Post({ post, toggleView }){
 
     const [commentsCount, setCommentsCount] = useState(post?.comments.length);
 
@@ -43,7 +43,7 @@ export default function Post({ post }){
                     <AddCommentModal post={post} setCommentsCount={setCommentsCount} commentsCount={commentsCount}/>
                     </div>
                     <LikeButton post={post} />
-                    {accountInfo.accountId == post.postedBy ? <DeleteButton postId={post.postId}/> : <></>}
+                    {accountInfo.accountId == post.postedBy ? <DeleteButton postId={post.postId} toggleView={toggleView}/> : <></>}
                 </div>
             </div>
         </div>

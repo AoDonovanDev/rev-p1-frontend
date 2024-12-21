@@ -40,6 +40,13 @@ export default function LoggedInContainer({accountInfo, allPosts, children}){
                     return copy;
 
                 })
+                break;
+            case "delete":
+                setView(view => {
+                    const copy = {...view};
+                    copy.posts = copy.posts.filter(p => p.postId != newPost);
+                    return copy;
+                })
             default:
                 setView(view => {
                     return {...view}
