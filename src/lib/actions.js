@@ -193,6 +193,20 @@ export async function deletePost(postId){
     revalidatePath("/feed", "layout")
 }
 
+export async function searchPosts(searchTerm){
+    const response = await fetch(`${process.env.BACKEND_API_URL}/search/posts`, {
+        cache: "no-cache",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: searchTerm
+    })
+    const searchResults = await response.json();
+    console.log("search results in search action: ", searchResults);
+    return searchResults;
+}
+
 export async function checkForToken(){
     const cookieStore = await cookies();
     if(cookieStore.get("smt")){

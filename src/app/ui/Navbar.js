@@ -6,6 +6,7 @@ import AddPostModal from "./AddPostModal"
 import { AccountContext } from "../AccountContext"
 import { useContext } from "react"
 import { usePathname } from "next/navigation"
+import SearchBar from "./SearchBar"
 
 export default function Navbar({toggleView}){
 
@@ -20,21 +21,21 @@ export default function Navbar({toggleView}){
             </div>
             <div className="navbar-center flex flex-col flex mt-[64px]">
                 <div className="flex">
-                    <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto mr-[16px]" />
+                    <SearchBar />
                     <AddPostModal toggleView={toggleView}/>
                 </div>
             </div>
             <div className="navbar-end">
                 <div className="dropdown dropdown-end">
-                    <div className="flex items-center">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                    <div className="flex">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-round flex">
                             <div className="w-10 rounded-full">
                                 <img
                                 alt="avatar click here for profile access and logout"
                                 src="/pfp1.svg" />
                             </div>
+                            <p>{account.username}</p>
                         </div>
-                        <p>{account.username}</p>
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li>

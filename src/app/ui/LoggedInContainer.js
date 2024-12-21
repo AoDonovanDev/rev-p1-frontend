@@ -2,14 +2,16 @@
 
 import Navbar from "./Navbar";
 import Feed from "./Feed";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AccountContext } from "../AccountContext";
 import { useState } from "react";
 import { revalidateFeed } from "@/lib/actions";
+import { ViewContext } from "../ViewContext";
 
 export default function LoggedInContainer({accountInfo, allPosts, children}){
 
     const path = usePathname();
+    const { replace } = useRouter();
 
 
     const { postsByFollowing } = accountInfo;
@@ -26,6 +28,7 @@ export default function LoggedInContainer({accountInfo, allPosts, children}){
                     name: "all",
                     posts: allPosts
                 });
+                replace("/feed")
                 break;
             case "following":
                 setView({
@@ -59,11 +62,13 @@ export default function LoggedInContainer({accountInfo, allPosts, children}){
 
     return (
         <AccountContext.Provider value={accountInfo}>
+            <ViewContext.Provider value={{view, setView}}>
             <div className="lg:mx-[200px]">
                 <Navbar toggleView={toggleView}/>
-                {path.includes("feed")&&<Feed view={view} toggleView={toggleView}/>}
+                {(path.includes("feed") || path.includes("search")) && <Feed view={view} toggleView={toggleView}/>}
                 {children}
             </div>
+            </ViewContext.Provider>
         </AccountContext.Provider>
 
     )
