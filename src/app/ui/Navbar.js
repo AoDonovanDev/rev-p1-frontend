@@ -7,7 +7,7 @@ import { AccountContext } from "../AccountContext"
 import { useContext } from "react"
 import { usePathname } from "next/navigation"
 
-export default function Navbar({view, setView}){
+export default function Navbar({toggleView}){
 
     const account = useContext(AccountContext);
     const path = usePathname();
@@ -21,7 +21,7 @@ export default function Navbar({view, setView}){
             <div className="navbar-center flex flex-col flex mt-[64px]">
                 <div className="flex">
                     <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto mr-[16px]" />
-                    <AddPostModal />
+                    <AddPostModal toggleView={toggleView}/>
                 </div>
             </div>
             <div className="navbar-end">

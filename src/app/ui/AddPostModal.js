@@ -5,12 +5,13 @@ import Image from "next/image"
 import { AccountContext } from "../AccountContext"
 import { addPost } from "@/lib/actions"
 
-export default function AddPostModal(){
+export default function AddPostModal({ toggleView }){
 
     const accountInfo = useContext(AccountContext);
 
     async function submit(formData){
-        await addPost(formData);
+        const newPost = await addPost(formData);
+        toggleView("add", newPost);
         document.getElementById("add_post_modal").close();
     }
 

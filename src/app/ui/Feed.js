@@ -5,36 +5,8 @@ import Post from "./Post"
 import { v4 as uuidv4 } from 'uuid';
 import { revalidateFeed } from "@/lib/actions";
 
-export default function Feed({allPosts}){
+export default function Feed({view, toggleView}){
 
-    const accountInfo = useContext(AccountContext);
-    const { postsByFollowing } = accountInfo;
-    const [view, setView] = useState({
-        name: "all",
-        posts: allPosts
-    });
-
-    async function toggleView(str){
-        switch(str){
-            case "all":
-                setView({
-                    name: "all",
-                    posts: allPosts
-                });
-                break;
-            case "following":
-                setView({
-                    name: "following",
-                    posts: postsByFollowing
-                })
-                break;
-            default:
-                setView(view => {
-                    return {...view}
-                })
-        }
-        await revalidateFeed();
-    }
 
 
     return (

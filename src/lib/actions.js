@@ -174,7 +174,10 @@ export async function addPost(formData){
         })
     })
     const newPostDto = await response.json();
+    newPostDto.comments = [];
+    newPostDto.postLikes = [];
     revalidatePath("/feed", "layout");
+    return newPostDto;
 }
 
 export async function deletePost(postId){
