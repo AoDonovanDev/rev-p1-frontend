@@ -3,13 +3,13 @@ import LoggedInContainer from "../ui/LoggedInContainer"
 
 export default async function LoggedInLayout( { children } ){
 
-    const accountInfo = await getAccountInfo();
+    const asyncAccountInfo = await getAccountInfo();
     const allPosts = await getAllPosts();
-    accountInfo.allPosts = allPosts;
+    asyncAccountInfo.allPosts = allPosts;
     console.log("revalidate this plz")
     return (
         <>
-            <LoggedInContainer accountInfo={accountInfo} allPosts={allPosts} children={children}/>
+            <LoggedInContainer asyncAccountInfo={asyncAccountInfo} allPosts={allPosts} children={children}/>
         </>
     )
 }

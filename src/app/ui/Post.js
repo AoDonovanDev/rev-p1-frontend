@@ -14,7 +14,7 @@ export default function Post({ post, toggleView }){
 
     const [commentsCount, setCommentsCount] = useState(post?.comments.length);
 
-    const accountInfo = useContext(AccountContext);
+    const { accountInfo } = useContext(AccountContext);
     const router = useRouter();
     const path = usePathname();
     const isAccountPage = path.includes("account");

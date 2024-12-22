@@ -7,17 +7,22 @@ import { AccountContext } from "../AccountContext"
 import { useContext } from "react"
 import { usePathname } from "next/navigation"
 import SearchBar from "./SearchBar"
+import { useRouter } from "next/navigation"
 
 export default function Navbar({toggleView}){
 
-    const account = useContext(AccountContext);
+    const { accountInfo } = useContext(AccountContext);
     const path = usePathname();
+    const { replace } = useRouter();
    
+    function home(){
+        replace("/feed")
+    }
 
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
-                <Link className="btn btn-ghost text-xl" href="/feed">BoopSky</Link>
+                <button className="btn btn-ghost text-xl" onClick={()=>home()}>BoopSky</button>
             </div>
             <div className="navbar-center flex flex-col flex mt-[64px]">
                 <div className="flex">
@@ -34,7 +39,7 @@ export default function Navbar({toggleView}){
                                 alt="avatar click here for profile access and logout"
                                 src="/pfp1.svg" />
                             </div>
-                            <p>{account.username}</p>
+                            <p>{accountInfo.username}</p>
                         </div>
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">

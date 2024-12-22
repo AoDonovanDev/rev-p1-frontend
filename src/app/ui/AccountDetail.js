@@ -6,21 +6,36 @@ import Image from "next/image";
 import { useContext, useState } from "react";
 import { AccountContext } from "../AccountContext";
 import { addOrRemoveFollower } from "@/lib/actions";
+import { ViewContext } from "../ViewContext";
 
 export default function AccountDetail( { account } ){
 
 
-    const accountInfo = useContext(AccountContext);
-    const flag = accountInfo?.following.filter(acc => acc.accountId = account.accountId).length > 0;
+    const { accountInfo, setAccountInfo } = useContext(AccountContext);
+    const { setView } = useContext(ViewContext);
+    const flag = accountInfo?.following.filter(acc => acc.accountId == account.accountId).length > 0;
     const [following, setFollowing] = useState(flag);
-
     const { likedPosts } = accountInfo;
     const [newLikedPosts, setNewLikedPosts] = useState(likedPosts)
 
-    function toggleFollow(){
+    async function toggleFollow(){
         const addRemove = following ? "remove" : "add";
-        addOrRemoveFollower(accountInfo.accountId, account.accountId, addRemove);
+        await addOrRemoveFollower(accountInfo.accountId, account.accountId, addRemove);
         setFollowing(following == true ? false : true);
+        setAccountInfo(acc => {
+            const copy = {...acc};
+            if(addRemove == "remove"){
+                copy.following = copy.following.filter(f => f.accountId != account.accountId);
+                console.log("should be removed? ", copy.following)
+                copy.postsByFollowing = copy.postsByFollowing.filter(p => p.postedBy != account.accountId);
+            } else {
+                copy.following = [...copy.following, account];
+                copy.postsByFollowing = [...copy.postsByFollowing, ...account.posts]
+            }
+            console.log("huge setstate: ", addRemove, copy)
+            return copy;            
+        })
+
     }
 
     return(

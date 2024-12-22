@@ -7,7 +7,7 @@ import { addPost } from "@/lib/actions"
 
 export default function AddPostModal({ toggleView }){
 
-    const accountInfo = useContext(AccountContext);
+    const { accountInfo } = useContext(AccountContext);
 
     async function submit(formData){
         const newPost = await addPost(formData);

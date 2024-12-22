@@ -12,7 +12,7 @@ export default function AddCommentModal({ post, setCommentsCount, commentsCount 
     const [uid, setUid] = useState("");
 
     const path = usePathname();
-    const accountInfo = useContext(AccountContext);
+    const { accountInfo } = useContext(AccountContext);
     
     useEffect(()=>{
         setUid(uuidv4())

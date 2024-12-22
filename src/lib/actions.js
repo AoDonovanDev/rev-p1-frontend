@@ -72,6 +72,7 @@ export async function getAccountInfo(){
     })
     const accInfoDto = await response.json();
     const { success, account } = accInfoDto;
+    console.log("here's me account", account)
     if(success){
         return account;
     } else {
@@ -112,7 +113,6 @@ export async function getAccountByAccountId(accountId){
         cache: "no-cache"
     });
     const accInfoDto = await response.json();
-    console.log(accountId, accInfoDto)
     const { success, account } = accInfoDto;
     if(success){
         return account;
@@ -232,5 +232,5 @@ export async function addOrRemoveFollower(followingAccountId, followedAccountId,
         },
         body: JSON.stringify(follow)
     })
-    revalidatePath("/account", "layout");
+    revalidatePath("/feed", "layout");
 }

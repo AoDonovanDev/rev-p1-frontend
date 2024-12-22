@@ -10,7 +10,7 @@ import { AccountContext } from "../AccountContext";
 
 export default function PostDetail( { post } ){
 
-    const accountInfo = useContext(AccountContext);
+    const { accountInfo } = useContext(AccountContext);
     const { likedPosts } = accountInfo;
 
     return (

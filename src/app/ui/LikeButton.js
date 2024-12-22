@@ -7,7 +7,7 @@ import { AccountContext } from "../AccountContext";
 
 export default function LikeButton({post}){
     
-    const accountInfo = useContext(AccountContext);
+    const { accountInfo } = useContext(AccountContext);
     const [likeState, setLikeState] = useState({
         isLiked: post.postLikes.includes(accountInfo.accountId),
         likesCount: post.postLikes.length

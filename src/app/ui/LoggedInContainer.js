@@ -8,19 +8,19 @@ import { useState } from "react";
 import { revalidateFeed } from "@/lib/actions";
 import { ViewContext } from "../ViewContext";
 
-export default function LoggedInContainer({accountInfo, allPosts, children}){
+export default function LoggedInContainer({asyncAccountInfo, allPosts, children}){
 
     const path = usePathname();
     const { replace } = useRouter();
 
-
-    const { postsByFollowing } = accountInfo;
-
     const [view, setView] = useState({
             name: "all",
             posts: allPosts
-        });
-    
+        })
+    const [accountInfo, setAccountInfo] = useState(asyncAccountInfo);
+
+    const { postsByFollowing } = accountInfo;
+
     async function toggleView(str, newPost){
         switch(str){
             case "all":
@@ -35,6 +35,7 @@ export default function LoggedInContainer({accountInfo, allPosts, children}){
                     name: "following",
                     posts: postsByFollowing
                 })
+                replace("/feed")
                 break;
             case "add":
                 setView(view => {
@@ -61,7 +62,7 @@ export default function LoggedInContainer({accountInfo, allPosts, children}){
 
 
     return (
-        <AccountContext.Provider value={accountInfo}>
+        <AccountContext.Provider value={{accountInfo, setAccountInfo}}>
             <ViewContext.Provider value={{view, setView}}>
             <div className="lg:mx-[200px]">
                 <Navbar toggleView={toggleView}/>
