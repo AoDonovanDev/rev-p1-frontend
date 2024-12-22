@@ -4,10 +4,12 @@ import Image from "next/image"
 import { addOrRemoveLike } from "@/lib/actions";
 import { useContext, useState } from "react";
 import { AccountContext } from "../AccountContext";
+import { ViewContext } from "../ViewContext";
 
 export default function LikeButton({post}){
     
-    const { accountInfo } = useContext(AccountContext);
+    const { accountInfo, setAccountInfo } = useContext(AccountContext);
+    const { setView } = useContext(ViewContext);
     const [likeState, setLikeState] = useState({
         isLiked: post.postLikes.includes(accountInfo.accountId),
         likesCount: post.postLikes.length
@@ -27,6 +29,7 @@ export default function LikeButton({post}){
             ...newLikeState,
             isLiked: newLikeState.isLiked ? false: true
         })
+        
     }
     
     return(

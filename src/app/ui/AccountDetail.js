@@ -12,7 +12,6 @@ export default function AccountDetail( { account } ){
 
 
     const { accountInfo, setAccountInfo } = useContext(AccountContext);
-    const { setView } = useContext(ViewContext);
     const flag = accountInfo?.following.filter(acc => acc.accountId == account.accountId).length > 0;
     const [following, setFollowing] = useState(flag);
     const { likedPosts } = accountInfo;
@@ -44,13 +43,13 @@ export default function AccountDetail( { account } ){
                 <div className="card-body">
                     <div className="flex w-full justify-between">
                         <h2 className="card-title">{account.username}</h2>
-                        <div className="flex btn" onClick={toggleFollow}>
+                        {accountInfo.accountId != account.accountId && <div className="flex btn" onClick={toggleFollow}>
                             {following ? <><Image src={"/following1.svg"} height={20} width={20} alt="add follower button"/>
                             <p className="w-[60px]">Following</p></>:
                             <><Image src={"/addFollower3.svg"} height={20} width={20} alt="add follower button"/>
                             <p className="w-[60px]">Follow</p></>
                             }
-                        </div>
+                        </div>}
                     </div>
                     <p>followers: {account.followedBy.length}</p>
                     <p>following: {account.following.length}</p>

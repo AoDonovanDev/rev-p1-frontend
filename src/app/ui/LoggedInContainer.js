@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import Feed from "./Feed";
 import { usePathname, useRouter } from "next/navigation";
 import { AccountContext } from "../AccountContext";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { revalidateFeed } from "@/lib/actions";
 import { ViewContext } from "../ViewContext";
 
@@ -20,6 +20,13 @@ export default function LoggedInContainer({asyncAccountInfo, allPosts, children}
     const [accountInfo, setAccountInfo] = useState(asyncAccountInfo);
 
     const { postsByFollowing } = accountInfo;
+
+
+    const [uiState, setUiState] = useReducer(toggleView, {
+        accountInfo: asyncAccountInfo,
+        view: allPosts,
+        postsByFollowing,
+    })
 
     async function toggleView(str, newPost){
         switch(str){
@@ -66,7 +73,7 @@ export default function LoggedInContainer({asyncAccountInfo, allPosts, children}
             <ViewContext.Provider value={{view, setView}}>
             <div className="lg:mx-[200px]">
                 <Navbar toggleView={toggleView}/>
-                {(path.includes("feed") || path.includes("search")) && <Feed view={view} toggleView={toggleView}/>}
+                {path.includes("feed") && <Feed view={view} toggleView={toggleView}/>}
                 {children}
             </div>
             </ViewContext.Provider>

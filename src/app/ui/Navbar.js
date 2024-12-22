@@ -20,17 +20,17 @@ export default function Navbar({toggleView}){
     }
 
     return (
-        <div className="navbar bg-base-100">
-            <div className="navbar-start">
-                <button className="btn btn-ghost text-xl" onClick={()=>home()}>BoopSky</button>
-            </div>
-            <div className="navbar-center flex flex-col flex mt-[64px]">
-                <div className="flex">
+        <div className="navbar bg-base-100 mt-[48px]">
+            <div className="navbar-start flex flex-col md:flex-row items-center">
+                <div>
+                    <button className="btn btn-ghost text-xl" onClick={()=>home()}>BoopSky</button>
+                </div>
+                <div className="navbar-center flex flex-col justify-items-center">
                     <SearchBar />
-                    <AddPostModal toggleView={toggleView}/>
                 </div>
             </div>
-            <div className="navbar-end">
+            <div className="navbar-end flex flex-col md:flex-row">
+                <AddPostModal toggleView={toggleView}/>
                 <div className="dropdown dropdown-end">
                     <div className="flex">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-round flex">
