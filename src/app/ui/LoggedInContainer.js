@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import Feed from "./Feed";
 import { usePathname, useRouter } from "next/navigation";
 import { AccountContext } from "../AccountContext";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { revalidateFeed } from "@/lib/actions";
 import { ViewContext } from "../ViewContext";
 
@@ -19,14 +19,11 @@ export default function LoggedInContainer({asyncAccountInfo, allPosts, children}
         })
     const [accountInfo, setAccountInfo] = useState(asyncAccountInfo);
 
+    useEffect(() => {
+        setAccountInfo(asyncAccountInfo)
+    }, [asyncAccountInfo])
+
     const { postsByFollowing } = accountInfo;
-
-
-    const [uiState, setUiState] = useReducer(toggleView, {
-        accountInfo: asyncAccountInfo,
-        view: allPosts,
-        postsByFollowing,
-    })
 
     async function toggleView(str, newPost){
         switch(str){
@@ -63,7 +60,7 @@ export default function LoggedInContainer({asyncAccountInfo, allPosts, children}
                     return {...view}
                 })
             }
-            await revalidateFeed();
+            replace(`/feed`);
         }
 
 

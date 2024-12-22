@@ -106,6 +106,7 @@ export async function addOrRemoveLike(plAccountId, plPostId, addRemove){
             plPostId
         })
     })
+    revalidatePath("/feed", "layout")
 }
 
 export async function getAccountByAccountId(accountId){
