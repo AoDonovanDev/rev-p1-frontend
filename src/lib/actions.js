@@ -94,7 +94,6 @@ export async function getPostById(postId){
 }
 
 export async function addOrRemoveLike(plAccountId, plPostId, addRemove){
-    console.log("add remove action: ",plAccountId, plPostId)
     await fetch(`${process.env.BACKEND_API_URL}/posts/${addRemove}Like`, {
         cache: "no-cache",
         method: "POST",
@@ -216,4 +215,22 @@ export async function checkForToken(){
 
 export async function revalidateFeed(){
     revalidatePath("/feed", "layout");
+}
+
+export async function addOrRemoveFollower(followingAccountId, followedAccountId, addRemove){
+
+    const follow = {
+        followingAccountId,
+        followedAccountId
+    }
+    console.log("follow addremove server action", follow, addRemove)
+    await fetch(`${process.env.BACKEND_API_URL}/follow/${addRemove}`, {
+        cache: "no-cache",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(follow)
+    })
+    revalidatePath("/account", "layout");
 }

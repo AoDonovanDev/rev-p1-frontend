@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Image from "next/image";
 import { useContext, useState } from "react";
 import { AccountContext } from "../AccountContext";
+import { addOrRemoveFollower } from "@/lib/actions";
 
 export default function AccountDetail( { account } ){
 
@@ -17,6 +18,8 @@ export default function AccountDetail( { account } ){
     const [newLikedPosts, setNewLikedPosts] = useState(likedPosts)
 
     function toggleFollow(){
+        const addRemove = following ? "remove" : "add";
+        addOrRemoveFollower(accountInfo.accountId, account.accountId, addRemove);
         setFollowing(following == true ? false : true);
     }
 
