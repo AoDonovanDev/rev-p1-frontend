@@ -22,7 +22,7 @@ export default function SearchBar(){
       params.delete('query');
     }
     params.delete('page');
-    replace(`/feed/posts?${params.toString()}`)
+    replace(`/search/posts?${params.toString()}`)
   };
 
   const debouncedHandleChange = debounce(handleChange)

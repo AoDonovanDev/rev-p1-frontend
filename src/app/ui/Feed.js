@@ -7,7 +7,7 @@ export default function Feed({view, toggleView}){
     return (
         <div className="flex flex-col items-center">
             <div className="cursor-pointer border-b-[2px] pt-[8px] mb-[16px] flex sm:w-full md:w-1/3">
-                <p className={`font-semibold w-1/2 indent-3 ${view.name == "all" ? "border-b-[4px]" : ""}`} id="clickthis" onClick={()=>toggleView("all")}>All</p>
+                <p className={`font-semibold w-1/2 indent-3 ${view.name == "all" ? "border-b-[4px]" : ""}`} onClick={()=>toggleView("all")}>All</p>
                 <p className={`font-semibold ml-[8px] w-1/2 text-right indent-8 ${view.name == "following" ? "border-b-[4px]" : ""}`} onClick={()=>toggleView("following")}>Following &nbsp; &nbsp;</p>
             </div>
             {view?.posts?.map(p => {

@@ -14,10 +14,7 @@ export default function LikeButton(){
     const postContext = useContext(PostContext)
     const [post, setPost] = useState(postContext);
     const [likeState, setLikeState] = useState({})
-    if(post.postId == 1){
-        console.log(post)
-    }
-    
+
     useEffect(() => {
         setLikeState({
             isLiked: post.postLikes?.includes(accountInfo.accountId),

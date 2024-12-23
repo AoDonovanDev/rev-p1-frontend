@@ -1,37 +1,37 @@
 'use client'
 
-import Link from "next/link"
-import { logout } from "@/lib/actions"
-import AddPostModal from "./AddPostModal"
-import { AccountContext } from "../AccountContext"
-import { useContext } from "react"
-import { usePathname } from "next/navigation"
-import SearchBar from "./SearchBar"
+import { AccountContext } from "@/app/AccountContext";
 import { useRouter } from "next/navigation"
+import { useContext } from "react";
+import { logout } from "@/lib/actions";
+import Link from "next/link";
+import SearchBar from "@/app/ui/SearchBar";
 
-export default function Navbar({toggleView}){
+export default function Layout({children}){
+
+    const { replace } = useRouter();
 
     const { accountInfo } = useContext(AccountContext);
-    const path = usePathname();
-    const { replace } = useRouter();
-   
+
     function home(){
         replace("/feed")
     }
 
-    return (
+    return(
+        <>
         <div className="navbar bg-base-100 mt-[48px]">
             <div className="navbar-start flex flex-col md:flex-row items-center">
                 <div>
                     <button className="btn btn-ghost text-xl" onClick={()=>home()}>BoopSky</button>
                 </div>
                 <div className="navbar-center flex flex-col justify-items-center">
-                    <Link href={"/search/posts"}>Search</Link>
+                 
                 </div>
             </div>
+            <SearchBar />
             <div className="navbar-end flex flex-col md:flex-row">
-                <AddPostModal toggleView={toggleView}/>
-                <div className="dropdown dropdown-end">
+            
+            <div className="dropdown dropdown-end">
                     <div className="flex">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-round flex">
                             <div className="w-10 rounded-full">
@@ -55,5 +55,8 @@ export default function Navbar({toggleView}){
                 </div>
             </div>
         </div>
+        {children}
+        </>
+
     )
 }

@@ -10,13 +10,17 @@ export default async function Page({ params, searchParams }){
 
   const { searchType } = await params;
 
-  console.log(query, searchType)
+  if(!query) return<></>
+  
 
   const searchResults = await searchPosts(query);
 
+  console.log(query, searchResults)
+  if(!searchResults) return <></>
+
   return (
     <>
-    {searchResults && <FeedContainer allPosts={searchResults}/>}
+      {searchResults && <SearchContainer searchResults={searchResults} />}
     </>
     
   )

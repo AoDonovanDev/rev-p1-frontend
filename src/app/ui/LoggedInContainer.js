@@ -8,7 +8,7 @@ import { useEffect, useReducer, useState } from "react";
 import { revalidateFeed } from "@/lib/actions";
 import { ViewContext } from "../ViewContext";
 
-export default function LoggedInContainer({asyncAccountInfo, allPosts, children}){
+export default function LoggedInContainer({asyncAccountInfo,  children}){
 
    
     const [accountInfo, setAccountInfo] = useState(asyncAccountInfo);
