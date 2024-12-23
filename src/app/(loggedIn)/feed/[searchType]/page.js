@@ -1,6 +1,7 @@
 import SearchContainer from "@/app/ui/SearchContainer";
 import { searchPosts } from "@/lib/actions";
 import SearchBar from "@/app/ui/SearchBar";
+import FeedContainer from "@/app/ui/FeedContainer";
 
 export default async function Page({ params, searchParams }){
 
@@ -15,8 +16,7 @@ export default async function Page({ params, searchParams }){
 
   return (
     <>
-   
-    {searchResults && <SearchContainer searchResults={searchResults}/>}
+    {searchResults && <FeedContainer allPosts={searchResults}/>}
     </>
     
   )

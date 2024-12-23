@@ -7,6 +7,7 @@ import { ViewContext } from "../ViewContext";
 import Navbar from "./Navbar";
 import { useRouter } from "next/navigation";
 import { revalidateFeed } from "@/lib/actions";
+import SearchContainer from "./SearchContainer";
 
 export default function FeedContainer({ allPosts }){
     
@@ -16,6 +17,13 @@ export default function FeedContainer({ allPosts }){
         name: "all",
         posts: allPosts
     })
+
+    useEffect(()=> {
+        setView({
+            name: "search",
+            posts: allPosts
+        })
+    }, [allPosts])
 
     async function toggleView(str, newPost){
         switch(str){
@@ -61,6 +69,7 @@ export default function FeedContainer({ allPosts }){
         <ViewContext.Provider value={{view, setView}}>
             <Navbar toggleView={toggleView}/>
             <Feed view={view} toggleView={toggleView}/>
+
         </ViewContext.Provider>
     )
 }
