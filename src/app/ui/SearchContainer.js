@@ -2,7 +2,6 @@
 
 import { useContext, useEffect } from "react";
 import { ViewContext } from "../ViewContext";
-import SearchBar from "./SearchBar";
 
 
 export default function SearchContainer({searchResults}){

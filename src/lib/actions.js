@@ -96,7 +96,7 @@ export async function getPostById(postId){
 
 export async function addOrRemoveLike(plAccountId, plPostId, addRemove){
     await fetch(`${process.env.BACKEND_API_URL}/posts/${addRemove}Like`, {
-        cache: "no-cache",
+        cache: "no-store",
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -106,7 +106,6 @@ export async function addOrRemoveLike(plAccountId, plPostId, addRemove){
             plPostId
         })
     })
-    revalidatePath("/feed", "layout")
 }
 
 export async function getAccountByAccountId(accountId){
@@ -176,7 +175,6 @@ export async function addPost(formData){
     const newPostDto = await response.json();
     newPostDto.comments = [];
     newPostDto.postLikes = [];
-    console.log(newPostDto)
     revalidatePath("/feed", "layout");
     return newPostDto;
 }
@@ -251,7 +249,7 @@ export async function editAccountInfo(formData){
         body: JSON.stringify(accUpdates)
     })
     const accInfoDto = await accInfoDtoResponse.json();
-    revalidatePath("/feed", "layout")
+    revalidatePath("/feed", "layout");
     return accInfoDto;
     
 }

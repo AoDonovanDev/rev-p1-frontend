@@ -7,12 +7,13 @@ import { useRouter } from "next/navigation";
 import { revalidateFeed } from "@/lib/actions";
 import { ViewContext } from "../ViewContext";
 import { redirect } from "next/navigation";
+import { getAllPosts } from "@/lib/actions";
 
 export default function AccountEdit({accountId}){
 
     const { accountInfo, setAccountInfo } = useContext(AccountContext);
     const { setView, toggleView } = useContext(ViewContext);
-    const router = useRouter();
+    const { replace } = useRouter();
 
     const [warning, setWarning] = useState("")
 
@@ -21,21 +22,23 @@ export default function AccountEdit({accountId}){
         const password = formData.get("password");
         const confirmPassword = formData.get("confirmPassword");
 
-        if(password != confirmPassword){
-            setWarning("Passwords must match");
+        if(password != confirmPassword || !password || !confirmPassword){
+            setWarning("Passwords must be valid and match");
             return;
         } 
 
         const accInfoDto = await editAccountInfo(formData);
-        console.log("what we got here: ", accInfoDto);
+
         if(accInfoDto.success){
             setAccountInfo(accInfoDto.account);
-            toggleView("all");            
+            replace("/feed");        
+            setView({
+                name: "all",
+                posts: allPosts
+            })
         }
 
     }
-
-
     return (
         <div className="w-full flex place-content-center">
             <div className="w-1/2 flex flex-col">

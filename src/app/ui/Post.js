@@ -42,7 +42,7 @@ export default function Post({ post, toggleView }){
                     <div className="flex items-center">
                     <AddCommentModal post={post} setCommentsCount={setCommentsCount} commentsCount={commentsCount}/>
                     </div>
-                    <LikeButton post={post} />
+                    <LikeButton />
                     {accountInfo.accountId == post.postedBy ? <DeleteButton postId={post.postId} toggleView={toggleView}/> : <></>}
                 </div>
             </div>
