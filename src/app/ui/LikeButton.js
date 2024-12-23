@@ -20,8 +20,8 @@ export default function LikeButton(){
     
     useEffect(() => {
         setLikeState({
-            isLiked: post.postLikes.includes(accountInfo.accountId),
-            likesCount: post.postLikes.length
+            isLiked: post.postLikes?.includes(accountInfo.accountId),
+            likesCount: post.postLikes?.length
         })
     }, []);
 
@@ -51,7 +51,7 @@ export default function LikeButton(){
     }
     
     return(
-        likeState.isLiked ? <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heartRed1.svg"} height={20} width={20} alt="like button"/>{post.postLikes.length}</button> :
-                    <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heart1.svg"} height={20} width={20} alt="like button"/>{post.postLikes.length}</button>  
+        likeState.isLiked ? <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heartRed1.svg"} height={20} width={20} alt="like button"/>{post.postLikes?.length}</button> :
+                    <button className="btn btn-ghost" onClick={toggleLike}><Image src={"/heart1.svg"} height={20} width={20} alt="like button"/>{post.postLikes?.length}</button>  
     )
 }
