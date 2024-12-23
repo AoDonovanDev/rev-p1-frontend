@@ -30,7 +30,7 @@ export default function Post({ post, toggleView }){
     
 
     return(
-        <div className="card bg-base-100 w-96 shadow-xl mt-[12px] cursor-pointer" onClick={(e)=>postClick(e, post.postId)}>
+        <div className="card bg-base-100 w-96 shadow-lg mt-[12px] cursor-pointer" onClick={(e)=>postClick(e, post.postId)}>
             <div className="card-body">
                 {!isAccountPage &&  <div className="flex">
                     <Image src={"/pfp1.svg"} height={20} width={20} alt="profile avatar"/>

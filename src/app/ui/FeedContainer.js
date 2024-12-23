@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Feed from "./Feed";
 import { AccountContext } from "../AccountContext";
 import { ViewContext } from "../ViewContext";
@@ -53,7 +53,12 @@ export default function FeedContainer({ allPosts }){
             revalidateFeed();
         }
 
-
+    useEffect(()=> {
+        setView(view => {
+            const copy = {...view};
+            return copy;
+        })
+    }, [accountInfo])
 
 
 
