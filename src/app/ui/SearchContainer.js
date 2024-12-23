@@ -28,7 +28,7 @@ export default function SearchContainer({searchResults}){
 
 
     return(
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center bg-[#CFE4EE] h-screen">
             {view && view.map(p => <Post key={uuidv4()} post={p} toggleView={toggleView}/>)}
         </div>
         

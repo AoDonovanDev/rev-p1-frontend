@@ -19,8 +19,6 @@ export default function LoggedInContainer({asyncAccountInfo,  children}){
     return (
         <AccountContext.Provider value={{accountInfo, setAccountInfo}}>
             <div className="lg:mx-[200px]">
-                
-                {/* {path.includes("feed") && <Feed view={view} toggleView={toggleView}/>} */}
                 {children}
             </div>
         </AccountContext.Provider>

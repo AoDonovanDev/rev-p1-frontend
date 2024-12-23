@@ -7,7 +7,7 @@ export default async function Page( { params } ){
     const account = await getAccountByAccountId(accountId);
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center h-screen">
             <AccountDetail account={account}/>
         </div>
     )

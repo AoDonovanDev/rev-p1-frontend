@@ -11,7 +11,7 @@ export default async function Page({params}){
 
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center h-screen">
             <PostDetail post={post} />
         </div>
     )

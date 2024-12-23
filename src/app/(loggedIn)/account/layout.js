@@ -19,7 +19,7 @@ export default function Layout({children}){
 
     return(
         <>
-        <div className="navbar bg-base-100 mt-[48px]">
+        <div className="navbar bg-[#CFE4EE] pt-[48px]">
             <div className="navbar-start flex flex-col md:flex-row items-center">
                 <div>
                     <button className="btn btn-ghost text-xl" onClick={()=>home()}>BoopSky</button>
