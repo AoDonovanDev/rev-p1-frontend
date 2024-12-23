@@ -235,3 +235,23 @@ export async function addOrRemoveFollower(followingAccountId, followedAccountId,
     })
     revalidatePath("/feed", "layout");
 }
+
+export async function editAccountInfo(formData){
+    const accountId = formData.get("accountId");
+    const accUpdates = {
+        username: formData.get("username"),
+        password: formData.get("password")
+    }
+    const accInfoDtoResponse = await fetch(`${process.env.BACKEND_API_URL}/account/${accountId}/edit`, {
+        cache: "no-cache",
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(accUpdates)
+    })
+    const accInfoDto = await accInfoDtoResponse.json();
+    revalidatePath("/feed", "layout")
+    return accInfoDto;
+    
+}

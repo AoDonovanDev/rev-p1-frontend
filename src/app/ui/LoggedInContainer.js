@@ -56,6 +56,7 @@ export default function LoggedInContainer({asyncAccountInfo, allPosts, children}
                     return copy;
                 })
             default:
+                console.log("AHHHHHHHHHHHHHHHHHHHHHHHHH")
                 setView(view => {
                     return {...view}
                 })
@@ -67,7 +68,7 @@ export default function LoggedInContainer({asyncAccountInfo, allPosts, children}
 
     return (
         <AccountContext.Provider value={{accountInfo, setAccountInfo}}>
-            <ViewContext.Provider value={{view, setView}}>
+            <ViewContext.Provider value={{view, setView, toggleView}}>
             <div className="lg:mx-[200px]">
                 <Navbar toggleView={toggleView}/>
                 {path.includes("feed") && <Feed view={view} toggleView={toggleView}/>}
