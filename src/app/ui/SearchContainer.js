@@ -10,10 +10,10 @@ import { v4 as uuidv4 } from 'uuid';
 export default function SearchContainer({searchResults}){
    
     const [view, setView] = useState(searchResults)
-
+    console.log(searchResults)
     useEffect(() => {
-        setView(view)
-    }, searchResults);
+        setView(searchResults)
+    }, [searchResults]);
 
 
     function toggleView(str){
