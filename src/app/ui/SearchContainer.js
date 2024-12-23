@@ -10,7 +10,6 @@ import { v4 as uuidv4 } from 'uuid';
 export default function SearchContainer({searchResults}){
    
     const [view, setView] = useState(searchResults)
-    console.log("search results in container", searchResults)
 
     useEffect(() => {
         setView(view)
