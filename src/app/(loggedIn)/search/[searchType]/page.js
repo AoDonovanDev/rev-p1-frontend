@@ -1,7 +1,7 @@
-import SearchContainer from "@/app/ui/SearchContainer";
+import SearchContainer from "@/app/ui/containers/SearchContainer";
 import { searchPosts } from "@/lib/actions";
 import SearchBar from "@/app/ui/SearchBar";
-import FeedContainer from "@/app/ui/FeedContainer";
+import FeedContainer from "@/app/ui/containers/FeedContainer";
 
 export default async function Page({ params, searchParams }){
 

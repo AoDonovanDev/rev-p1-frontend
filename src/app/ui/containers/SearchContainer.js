@@ -1,9 +1,9 @@
 'use client'
 
 import { useContext, useEffect } from "react";
-import { ViewContext } from "../ViewContext";
+import { ViewContext } from "../../ViewContext";
 import { useState } from "react";
-import Post from "./Post";
+import Post from "../Post";
 import { v4 as uuidv4 } from 'uuid';
 
 

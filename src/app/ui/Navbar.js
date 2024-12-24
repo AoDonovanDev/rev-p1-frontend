@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { logout } from "@/lib/actions"
-import AddPostModal from "./AddPostModal"
+import AddPostModal from "./modals/AddPostModal"
 import { AccountContext } from "../AccountContext"
 import { useContext } from "react"
 import { usePathname } from "next/navigation"

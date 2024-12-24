@@ -3,10 +3,10 @@
 import Image from "next/image"
 import { addOrRemoveLike } from "@/lib/actions";
 import { useContext, useState, useEffect } from "react";
-import { AccountContext } from "../AccountContext";
-import { ViewContext } from "../ViewContext";
+import { AccountContext } from "../../AccountContext";
+import { ViewContext } from "../../ViewContext";
 import { useRouter } from "next/navigation";
-import { PostContext } from "../PostContext";
+import { PostContext } from "../../PostContext";
 
 export default function LikeButton(){
     

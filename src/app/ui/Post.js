@@ -4,11 +4,11 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState, useContext } from "react";
 import { usePathname } from "next/navigation";
-import AddCommentModal from "./AddCommentModal";
-import LikeButton from "./LikeButton";
+import AddCommentModal from "./modals/AddCommentModal";
+import LikeButton from "./buttons/LikeButton";
 import Link from "next/link";
 import { AccountContext } from "../AccountContext";
-import DeleteButton from "./DeleteButton";
+import DeleteButton from "./buttons/DeleteButton";
 
 export default function Post({ post, toggleView }){
 

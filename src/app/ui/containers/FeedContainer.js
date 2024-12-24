@@ -1,10 +1,10 @@
 'use client'
 
 import { useContext, useEffect, useState } from "react";
-import Feed from "./Feed";
-import { AccountContext } from "../AccountContext";
-import { ViewContext } from "../ViewContext";
-import Navbar from "./Navbar";
+import Feed from "../Feed";
+import { AccountContext } from "../../AccountContext";
+import { ViewContext } from "../../ViewContext";
+import Navbar from "../Navbar";
 import { revalidateFeed } from "@/lib/actions";
 
 export default function FeedContainer({ allPosts }){

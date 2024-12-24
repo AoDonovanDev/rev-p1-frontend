@@ -1,12 +1,12 @@
 'use client';
 
-import Navbar from "./Navbar";
-import Feed from "./Feed";
+import Navbar from "../Navbar";
+import Feed from "../Feed";
 import { usePathname, useRouter } from "next/navigation";
-import { AccountContext } from "../AccountContext";
+import { AccountContext } from "../../AccountContext";
 import { useEffect, useReducer, useState } from "react";
 import { revalidateFeed } from "@/lib/actions";
-import { ViewContext } from "../ViewContext";
+import { ViewContext } from "../../ViewContext";
 
 export default function LoggedInContainer({asyncAccountInfo,  children}){
 

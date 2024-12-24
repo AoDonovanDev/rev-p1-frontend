@@ -1,7 +1,7 @@
 import { getAccountInfo } from "@/lib/actions"
 import { getPostById } from "@/lib/actions"
 import PostDetail from "@/app/ui/PostDetail";
-import LoggedInContainer from "@/app/ui/LoggedInContainer";
+import LoggedInContainer from "@/app/ui/containers/LoggedInContainer";
 
 
 export default async function Page({params}){

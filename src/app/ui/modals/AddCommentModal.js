@@ -5,7 +5,7 @@ import { addComment } from "@/lib/actions";
 import { useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
-import { AccountContext } from "../AccountContext";
+import { AccountContext } from "../../AccountContext";
 
 export default function AddCommentModal({ post, setCommentsCount, commentsCount }){
 

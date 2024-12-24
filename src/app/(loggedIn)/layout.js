@@ -1,5 +1,5 @@
 import { getAccountInfo, getAllPosts } from "@/lib/actions"
-import LoggedInContainer from "../ui/LoggedInContainer"
+import LoggedInContainer from "../ui/containers/LoggedInContainer"
 
 export default async function LoggedInLayout( { children } ){
 

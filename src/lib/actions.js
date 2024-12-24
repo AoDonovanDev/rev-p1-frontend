@@ -81,8 +81,13 @@ export async function getAccountInfo(){
 }
 
 export async function getAllPosts(){
+    const cookieStore = await cookies();
+    const token = cookieStore.get("smt");
     const response = await fetch(`${process.env.BACKEND_API_URL}/posts`, {
-        cache: "no-cache"
+        cache: "no-cache",
+        headers: {
+            "Authorization": `${token.value}`
+        }
     });
     const posts = await response.json();
     return posts;
@@ -180,11 +185,14 @@ export async function addPost(formData){
 }
 
 export async function deletePost(postId){
+    const cookieStore = await cookies();
+    const token = cookieStore.get("smt");
     await fetch(`${process.env.BACKEND_API_URL}/posts/${postId}`, {
         cache: "no-cache",
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `${token.value}`
         },
         body: postId
     })
@@ -235,6 +243,8 @@ export async function addOrRemoveFollower(followingAccountId, followedAccountId,
 }
 
 export async function editAccountInfo(formData){
+    const cookieStore = await cookies();
+    const token = cookieStore.get("smt");
     const accountId = formData.get("accountId");
     const accUpdates = {
         username: formData.get("username"),
@@ -244,7 +254,8 @@ export async function editAccountInfo(formData){
         cache: "no-cache",
         method: "PATCH",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `${token.value}`
         },
         body: JSON.stringify(accUpdates)
     })
